@@ -192,3 +192,4 @@ cython_debug/
 .venv/
 mlruns/
 .DS_Store
+/data
