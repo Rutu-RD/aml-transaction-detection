@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 from loguru import logger
  
-from aml_detection.config import RAW_DATA_DIR
+from aml_detection.config import RAW_DATA_DIR,INTERIM_DATA_DIR
 COLUMN_MAP: dict[str, str] = {
     "Timestamp": "timestamp",
     "From Bank": "src_bank",
@@ -203,7 +203,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
         .pipe(_flag_burn_in)
     )
  
-    logger.success(
+    logger.success( 
         f"Cleaned {len(cleaned):,} rows | "
         f"laundering {cleaned['is_laundering'].mean():.4%} | "
         f"self-loops {cleaned['is_self_loop'].mean():.1%}"
@@ -216,9 +216,8 @@ def load_dataset(
     data_dir: Path | None = None,
 ) -> pd.DataFrame:
     """Load and clean in one call."""
-    return clean(
-        load_raw(filename=filename, nrows=nrows, data_dir=data_dir),
-        
+    return (
+        clean(load_raw(filename=filename, nrows=nrows, data_dir=data_dir))    
     )
 
 def summarise(df: pd.DataFrame) -> pd.Series:
@@ -240,3 +239,30 @@ def summarise(df: pd.DataFrame) -> pd.Series:
             "days_covered": (df["timestamp"].max() - df["timestamp"].min()).days,
         }
     )
+
+# --------------------------------------------------------------------------
+# saving the loaded and cleaned data to interim/transaction/filename
+
+# --------------------------------------------------------------------------
+
+TRANSACTION_INTERIM_DIR = INTERIM_DATA_DIR / "transaction"
+
+
+def save_data_transaction(df: pd.DataFrame, filename: str) -> Path:
+    """Write the cleaned transaction frame to data/interim/transaction/."""
+    TRANSACTION_INTERIM_DIR.mkdir(parents=True, exist_ok=True)
+    save_path = TRANSACTION_INTERIM_DIR / filename
+    df.to_parquet(save_path, index=False)
+    logger.success(
+        f"Wrote {len(df):,} rows to {save_path} "
+        f"({save_path.stat().st_size / 1e6:.1f} MB)"
+    )
+    return save_path
+    
+if __name__=="__main__":
+    transactions_df=load_dataset("HI-Small_Trans.csv")
+    
+    save_data_transaction(transactions_df,"transaction_cleaned.parquet")
+    logger.info("saved cleaned transaction data to interim succesfully")
+
+
