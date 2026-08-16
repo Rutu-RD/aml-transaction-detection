@@ -1,0 +1,38 @@
+schema: '2.0'
+stages:
+  clean_transactions:
+    cmd: python -m aml_detection.dataset_loader
+    deps:
+    - path: aml_detection/dataset_loader.py
+      hash: md5
+      md5: 52da21a96daf668601ab081a191b7de8
+      size: 9622
+    - path: data/raw/HI-Small_Trans.csv
+      hash: md5
+      md5: 9667f3a6323e6ad88e699acf42db9157
+      size: 475664283
+    outs:
+    - path: data/interim/transaction/transaction_cleaned.parquet
+      hash: md5
+      md5: 5d94d1493361912683241746d4d5a788
+      size: 192129621
+  merge_accounts:
+    cmd: python -m aml_detection.dataset_loader_accounts
+    deps:
+    - path: aml_detection/dataset_loader_accounts.py
+      hash: md5
+      md5: 98ba12a139e5b8b26c4cad991ae0abdb
+      size: 10004
+    - path: data/interim/transaction/transaction_cleaned.parquet
+      hash: md5
+      md5: 5d94d1493361912683241746d4d5a788
+      size: 192129621
+    - path: data/raw/HI-Small_accounts.csv
+      hash: md5
+      md5: 96f67c1d734441050fd2ba960bb5aeef
+      size: 34053187
+    outs:
+    - path: data/interim/merged/transactions_merged.parquet
+      hash: md5
+      md5: ec2bcbb8cda2dd51073122593e5aa74f
+      size: 202976106

@@ -1,0 +1,17 @@
+stages:
+  clean_transactions:
+    cmd: python -m aml_detection.dataset_loader
+    deps:
+      - aml_detection/dataset_loader.py
+      - data/raw/HI-Small_Trans.csv
+    outs:
+      - data/interim/transaction/transaction_cleaned.parquet
+
+  merge_accounts:
+    cmd: python -m aml_detection.dataset_loader_accounts
+    deps:
+      - aml_detection/dataset_loader_accounts.py
+      - data/interim/transaction/transaction_cleaned.parquet
+      - data/raw/HI-Small_accounts.csv
+    outs:
+      - data/interim/merged/transactions_merged.parquet
