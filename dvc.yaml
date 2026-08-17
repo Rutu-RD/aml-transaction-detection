@@ -15,3 +15,10 @@ stages:
       - data/raw/HI-Small_accounts.csv
     outs:
       - data/interim/merged/transactions_merged.parquet
+  build_features:
+    cmd: python -m aml_detection.features
+    deps:
+      - aml_detection/features.py
+      - data/interim/merged/transactions_merged.parquet
+    outs:
+      - data/processed/transactions_features.parquet

@@ -36,3 +36,19 @@ stages:
       hash: md5
       md5: ec2bcbb8cda2dd51073122593e5aa74f
       size: 202976106
+  build_features:
+    cmd: python -m aml_detection.features
+    deps:
+    - path: aml_detection/features.py
+      hash: md5
+      md5: 06a91a3427574cc173f9630a00bcca3b
+      size: 11972
+    - path: data/interim/merged/transactions_merged.parquet
+      hash: md5
+      md5: ec2bcbb8cda2dd51073122593e5aa74f
+      size: 202976106
+    outs:
+    - path: data/processed/transactions_features.parquet
+      hash: md5
+      md5: 62f64cee2ca81e3762cfc728d2a59a3b
+      size: 341227405
