@@ -52,3 +52,27 @@ stages:
       hash: md5
       md5: 62f64cee2ca81e3762cfc728d2a59a3b
       size: 341227405
+  split_data:
+    cmd: python -m aml_detection.splitting
+    deps:
+    - path: aml_detection/splitting.py
+      hash: md5
+      md5: 215d9ef0194eac2e70a35fdd73a49fb7
+      size: 10635
+    - path: data/processed/transactions_features.parquet
+      hash: md5
+      md5: 62f64cee2ca81e3762cfc728d2a59a3b
+      size: 341227405
+    outs:
+    - path: data/processed/splits/test.parquet
+      hash: md5
+      md5: 87d98678b1b07bdd2d62f9eeed25fd27
+      size: 70598564
+    - path: data/processed/splits/train.parquet
+      hash: md5
+      md5: 822bf2c147de816ba6da455f6e5b331b
+      size: 75468759
+    - path: data/processed/splits/val.parquet
+      hash: md5
+      md5: 0341e728036d78b0f0b8b6936fead85b
+      size: 65452806

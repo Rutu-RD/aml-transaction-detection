@@ -22,3 +22,12 @@ stages:
       - data/interim/merged/transactions_merged.parquet
     outs:
       - data/processed/transactions_features.parquet
+  split_data:
+    cmd: python -m aml_detection.splitting
+    deps:
+      - aml_detection/splitting.py
+      - data/processed/transactions_features.parquet
+    outs:
+      - data/processed/splits/train.parquet
+      - data/processed/splits/val.parquet
+      - data/processed/splits/test.parquet
