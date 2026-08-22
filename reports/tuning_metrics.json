@@ -1,0 +1,8 @@
+{
+  "best_model": "cv_xgboost",
+  "best_params": "{\"learning_rate\": 0.1, \"max_depth\": 8, \"min_child_weight\": 10}",
+  "cv_pr_auc": 0.3599237137374273,
+  "val_pr_auc": 0.36463129295035057,
+  "pr_auc_vs_baseline": 28.93899150399608,
+  "recall_at_1000": 0.3737280296022202
+}
