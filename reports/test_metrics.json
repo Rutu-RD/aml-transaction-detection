@@ -1,0 +1,27 @@
+{
+  "model": "cv_xgboost",
+  "run_id": "99ad3cf4d38a4e71a445d1f775889295",
+  "pr_auc": 0.21294054995036713,
+  "roc_auc": 0.9573921517925662,
+  "base_rate": 0.0011256448083449377,
+  "pr_auc_vs_baseline": 16.900043646854535,
+  "pr_auc_vs_random": 189.17206242301128,
+  "positives": 1143,
+  "rows": 1015418,
+  "brier_score": 0.0026674887631088495,
+  "operating_point": {
+    "threshold": 0.08771205693483353,
+    "val_precision": 0.10634114369981976,
+    "val_recall": 0.6003700277520814,
+    "target_recall": 0.6,
+    "alerts": 9877,
+    "alert_rate": 0.009727028671936089,
+    "true_positives": 622,
+    "false_positives": 9255,
+    "false_negatives": 521,
+    "precision": 0.06297458742533157,
+    "recall": 0.5441819772528433,
+    "alerts_per_catch": 15.879421221864952
+  },
+  "val_to_test_drop": 0.15169074299998345
+}
