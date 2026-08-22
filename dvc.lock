@@ -76,3 +76,78 @@ stages:
       hash: md5
       md5: 0341e728036d78b0f0b8b6936fead85b
       size: 65452806
+  train_models:
+    cmd: python -m aml_detection.modeling.train
+    deps:
+    - path: aml_detection/features.py
+      hash: md5
+      md5: 06a91a3427574cc173f9630a00bcca3b
+      size: 11972
+    - path: aml_detection/modeling/train.py
+      hash: md5
+      md5: be7d61fbb784ffdd11d48a22816de9be
+      size: 17722
+    - path: data/processed/splits/train.parquet
+      hash: md5
+      md5: 822bf2c147de816ba6da455f6e5b331b
+      size: 75468759
+    - path: data/processed/splits/val.parquet
+      hash: md5
+      md5: 0341e728036d78b0f0b8b6936fead85b
+      size: 65452806
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: 4b62b4f768741d4562faad4e3ee3ce22
+      size: 184
+    - path: reports/model_comparison.csv
+      hash: md5
+      md5: 9226e66619e2b0f54caaf8118aec8d6d
+      size: 1412
+  tune_models:
+    cmd: python -m aml_detection.modeling.tune
+    deps:
+    - path: aml_detection/modeling/tune.py
+      hash: md5
+      md5: 80de499045bf4b52a6dbdce506df456b
+      size: 11904
+    - path: data/processed/splits/train.parquet
+      hash: md5
+      md5: 822bf2c147de816ba6da455f6e5b331b
+      size: 75468759
+    - path: data/processed/splits/val.parquet
+      hash: md5
+      md5: 0341e728036d78b0f0b8b6936fead85b
+      size: 65452806
+    params:
+      params.yaml:
+        tuning:
+          n_splits: 3
+          scoring: average_precision
+          grids:
+            logreg:
+              model__C:
+              - 0.01
+              - 0.1
+              - 1.0
+              - 10.0
+            xgboost:
+              model__max_depth:
+              - 4
+              - 6
+              - 8
+              model__learning_rate:
+              - 0.05
+              - 0.1
+              model__min_child_weight:
+              - 1
+              - 10
+    outs:
+    - path: reports/tuning_comparison.csv
+      hash: md5
+      md5: 25963e5319dc21eed7e4468061d76a4b
+      size: 1073
+    - path: reports/tuning_metrics.json
+      hash: md5
+      md5: 3d935f5ead67f099d470b1a27b797898
+      size: 276

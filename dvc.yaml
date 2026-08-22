@@ -31,3 +31,28 @@ stages:
       - data/processed/splits/train.parquet
       - data/processed/splits/val.parquet
       - data/processed/splits/test.parquet
+  train_models:
+    cmd: python -m aml_detection.modeling.train
+    deps:
+      - aml_detection/modeling/train.py
+      - aml_detection/features.py
+      - data/processed/splits/train.parquet
+      - data/processed/splits/val.parquet
+    outs:
+      - reports/model_comparison.csv
+    metrics:
+      - reports/metrics.json:
+          cache: false
+  tune_models:
+    cmd: python -m aml_detection.modeling.tune
+    deps:
+      - aml_detection/modeling/tune.py
+      - data/processed/splits/train.parquet
+      - data/processed/splits/val.parquet
+    params:
+      - tuning
+    outs:
+      - reports/tuning_comparison.csv
+    metrics:
+      - reports/tuning_metrics.json:
+          cache: false
