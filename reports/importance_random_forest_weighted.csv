@@ -1,0 +1,21 @@
+,0
+cat__payment_format_ACH,0.2775184059805467
+num__amt_pct_ccy,0.0981761022456011
+cat__payment_format_Cheque,0.08606726935850788
+num__src_secs_since_last_log,0.07434806382426697
+num__src_fanout_ratio,0.06015294045429213
+num__dst_fanin_ratio,0.055196141237806674
+cat__payment_format_Credit Card,0.053913584910351024
+num__missingindicator_src_log_dev,0.049050960290039664
+num__missingindicator_src_fanout_ratio,0.04237032784359909
+num__src_log_dev,0.030517507236273715
+num__missingindicator_dst_fanin_ratio,0.028441219492566526
+bool__src_rapid_txn,0.027537375508744813
+bool__dst_high_fanin,0.013519808713338109
+cat__payment_format_Cash,0.013494602720125448
+num__hour_cos,0.012346673867960246
+cat__src_bank_country_Named,0.008483172994250375
+num__hour_sin,0.007916175328543051
+bool__src_dormant_wake,0.007617009765845411
+cat__dst_bank_country_Saudi Arabia,0.003926531358002963
+cat__src_entity_type_Corporation,0.0036260446835248636

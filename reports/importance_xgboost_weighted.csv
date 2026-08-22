@@ -1,0 +1,21 @@
+,0
+cat__payment_format_ACH,0.3795894
+cat__payment_format_Credit Card,0.03647967
+cat__src_bank_country_Named,0.033055577
+cat__payment_format_Cheque,0.028927865
+num__src_secs_since_last_log,0.026705332
+num__src_fanout_ratio,0.01938568
+num__dst_fanin_ratio,0.01823525
+cat__dst_bank_country_Saudi Arabia,0.017682306
+cat__dst_bank_country_Crytpo,0.017482964
+cat__payment_format_Bitcoin,0.017469326
+cat__dst_bank_country_Named,0.016945729
+num__amt_pct_ccy,0.016847868
+bool__src_rapid_txn,0.015946541
+cat__src_entity_type_Corporation,0.013664304
+cat__src_bank_country_Crytpo,0.01288703
+num__src_log_dev,0.012088872
+cat__dst_bank_country_UK,0.010676803
+cat__src_entity_type_Other,0.010563825
+cat__dst_bank_country_infrequent_sklearn,0.010382811
+cat__src_entity_type_Sole Proprietorship,0.0099567585

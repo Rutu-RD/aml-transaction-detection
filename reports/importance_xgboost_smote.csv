@@ -1,0 +1,21 @@
+,0
+cat__payment_format_ACH,0.24669231
+cat__payment_format_Cheque,0.085586466
+cat__payment_format_Credit Card,0.083394736
+cat__payment_format_Cash,0.06370114
+bool__src_rapid_txn,0.057893436
+num__src_secs_since_last_log,0.028658355
+num__missingindicator_src_fanout_ratio,0.027155107
+num__amt_pct_ccy,0.021318754
+cat__dst_bank_country_Germany,0.017111015
+cat__dst_bank_country_Named,0.01577638
+cat__src_bank_country_Named,0.015581431
+cat__payment_format_Bitcoin,0.013199685
+num__src_fanout_ratio,0.012574901
+cat__src_entity_type_Sole Proprietorship,0.012494924
+cat__dst_entity_type_Corporation,0.01183907
+cat__src_entity_type_Corporation,0.011628815
+cat__dst_bank_country_Crytpo,0.011231923
+num__missingindicator_src_log_dev,0.010581453
+cat__dst_entity_type_Partnership,0.0103474455
+num__hour_cos,0.0098760985
