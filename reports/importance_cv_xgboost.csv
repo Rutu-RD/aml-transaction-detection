@@ -1,0 +1,21 @@
+,0
+cat__payment_format_ACH,0.5425254
+cat__payment_format_Credit Card,0.04176134
+cat__payment_format_Cheque,0.027050842
+cat__dst_bank_country_Crytpo,0.020260273
+cat__dst_bank_country_Saudi Arabia,0.019473255
+cat__payment_format_Bitcoin,0.016825572
+cat__src_bank_country_Named,0.01560346
+num__src_secs_since_last_log,0.014544474
+num__src_fanout_ratio,0.013862165
+cat__payment_format_Cash,0.010348751
+num__dst_fanin_ratio,0.00947893
+num__amt_pct_ccy,0.008505128
+cat__dst_bank_country_Australia,0.008197332
+cat__src_entity_type_Corporation,0.007890479
+cat__dst_bank_country_Brazil,0.007727529
+cat__dst_bank_country_Named,0.0076875505
+cat__dst_entity_type_Other,0.007424358
+cat__dst_bank_country_infrequent_sklearn,0.0074004186
+cat__src_entity_type_Other,0.007151504
+cat__dst_bank_country_UK,0.006954959
