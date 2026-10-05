@@ -15,6 +15,7 @@ os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
 from aml_detection.config import MODELS_DIR, PROJ_ROOT, REPORTS_DIR
 from aml_detection.features import FEATURE_COLUMNS, TARGET, feature_matrix
 from aml_detection.modeling.train import (
+    ALL_FEATURES,
     BASELINE_PR_AUC,
     RANDOM_STATE,
     build_preprocessor,
@@ -225,8 +226,8 @@ def run_tuning(
     train = load_split("train") if train is None else train
     val = load_split("val") if val is None else val
  
-    X_train, y_train = feature_matrix(train), train[TARGET]
-    X_val, y_val = feature_matrix(val), val[TARGET]
+    X_train, y_train = train[list(ALL_FEATURES)], train[TARGET]
+    X_val, y_val = val[list(ALL_FEATURES)], val[TARGET]
  
     scale_pos_weight = (y_train == 0).sum() / max((y_train == 1).sum(), 1)
     logger.info(

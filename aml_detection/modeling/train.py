@@ -78,6 +78,9 @@ from aml_detection.features import (
     feature_matrix,
 )
 from aml_detection.splitting import load_split
+from aml_detection.graph_features import GRAPH_FEATURE_COLUMNS
+
+ALL_FEATURES = FEATURE_COLUMNS + GRAPH_FEATURE_COLUMNS
 
 os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
 
@@ -133,6 +136,7 @@ def build_preprocessor(handles_nan: bool = False) -> ColumnTransformer:
     return ColumnTransformer(
         transformers=[
             ("num", Pipeline(numeric_steps), list(NUMERIC_FEATURES)),
+            ("graph",Pipeline(numeric_steps),list(GRAPH_FEATURE_COLUMNS)),
             ("bool", "passthrough", list(BOOLEAN_FEATURES)),
             ("cat", categorical, list(CATEGORICAL_FEATURES)),
         ],
@@ -378,8 +382,8 @@ def run_experiments(
     train = load_split("train") if train is None else train
     val = load_split("val") if val is None else val
 
-    X_train, y_train = feature_matrix(train), train[TARGET]
-    X_val, y_val = feature_matrix(val), val[TARGET]
+    X_train, y_train = train[list(ALL_FEATURES)], train[TARGET]
+    X_val, y_val = val[list(ALL_FEATURES)], val[TARGET]
 
     scale_pos_weight = (y_train == 0).sum() / max((y_train == 1).sum(), 1)
     logger.info(
@@ -404,7 +408,7 @@ def run_experiments(
             import mlflow
             with mlflow.start_run(run_name=spec.name):
                 mlflow.log_params(spec.params)
-                mlflow.log_param("n_features", len(FEATURE_COLUMNS))
+                mlflow.log_param("n_features", len(ALL_FEATURES))
                 mlflow.log_param("train_positives", int(y_train.sum()))
 
                 pipeline, metrics = train_one(spec, X_train, y_train, X_val, y_val)

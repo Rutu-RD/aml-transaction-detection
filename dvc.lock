@@ -57,25 +57,25 @@ stages:
     deps:
     - path: aml_detection/splitting.py
       hash: md5
-      md5: 215d9ef0194eac2e70a35fdd73a49fb7
-      size: 10635
-    - path: data/processed/transactions_features.parquet
+      md5: a190a39cb8f618e20ad05dcd54575d64
+      size: 10641
+    - path: data/processed/transactions_graph_features.parquet
       hash: md5
-      md5: 62f64cee2ca81e3762cfc728d2a59a3b
-      size: 341227405
+      md5: 1e4bbbc61f142f7541b1f9571faecca2
+      size: 808761121
     outs:
     - path: data/processed/splits/test.parquet
       hash: md5
-      md5: 87d98678b1b07bdd2d62f9eeed25fd27
-      size: 70598564
+      md5: 1706e9e2e8ce86d76d7b5af59893d312
+      size: 184168606
     - path: data/processed/splits/train.parquet
       hash: md5
-      md5: 822bf2c147de816ba6da455f6e5b331b
-      size: 75468759
+      md5: 069ec4090126b89ee86f34af0dab0115
+      size: 209262265
     - path: data/processed/splits/val.parquet
       hash: md5
-      md5: 0341e728036d78b0f0b8b6936fead85b
-      size: 65452806
+      md5: e60d30ab99d7411dab57f3c442cc3b64
+      size: 178614945
   train_models:
     cmd: python -m aml_detection.modeling.train
     deps:
@@ -83,27 +83,31 @@ stages:
       hash: md5
       md5: 06a91a3427574cc173f9630a00bcca3b
       size: 11972
+    - path: aml_detection/graph_features.py
+      hash: md5
+      md5: c392f927791201b473991353f33de0ae
+      size: 16281
     - path: aml_detection/modeling/train.py
       hash: md5
-      md5: be7d61fbb784ffdd11d48a22816de9be
-      size: 17722
+      md5: 50e38d36a40813f3d6d494e9f394ae2b
+      size: 17921
     - path: data/processed/splits/train.parquet
       hash: md5
-      md5: 822bf2c147de816ba6da455f6e5b331b
-      size: 75468759
+      md5: 069ec4090126b89ee86f34af0dab0115
+      size: 209262265
     - path: data/processed/splits/val.parquet
       hash: md5
-      md5: 0341e728036d78b0f0b8b6936fead85b
-      size: 65452806
+      md5: e60d30ab99d7411dab57f3c442cc3b64
+      size: 178614945
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: 4b62b4f768741d4562faad4e3ee3ce22
-      size: 184
+      md5: 785f575f07cfebd7c8442913357001e7
+      size: 180
     - path: reports/model_comparison.csv
       hash: md5
-      md5: 9226e66619e2b0f54caaf8118aec8d6d
-      size: 1412
+      md5: d58e7535065a35115c047d6bc376dced
+      size: 1403
   tune_models:
     cmd: python -m aml_detection.modeling.tune
     deps:
@@ -113,12 +117,12 @@ stages:
       size: 11904
     - path: data/processed/splits/train.parquet
       hash: md5
-      md5: 822bf2c147de816ba6da455f6e5b331b
-      size: 75468759
+      md5: 069ec4090126b89ee86f34af0dab0115
+      size: 209262265
     - path: data/processed/splits/val.parquet
       hash: md5
-      md5: 0341e728036d78b0f0b8b6936fead85b
-      size: 65452806
+      md5: e60d30ab99d7411dab57f3c442cc3b64
+      size: 178614945
     params:
       params.yaml:
         tuning:
@@ -145,9 +149,25 @@ stages:
     outs:
     - path: reports/tuning_comparison.csv
       hash: md5
-      md5: 25963e5319dc21eed7e4468061d76a4b
+      md5: 32a09e8541518a1f005956b3d18a1877
       size: 1073
     - path: reports/tuning_metrics.json
       hash: md5
-      md5: 3d935f5ead67f099d470b1a27b797898
-      size: 276
+      md5: 381c7a68af8eb8e130a3df192f1fe510
+      size: 278
+  build_graph_features:
+    cmd: python -m aml_detection.graph_features
+    deps:
+    - path: aml_detection/graph_features.py
+      hash: md5
+      md5: c392f927791201b473991353f33de0ae
+      size: 16281
+    - path: data/processed/transactions_features.parquet
+      hash: md5
+      md5: 62f64cee2ca81e3762cfc728d2a59a3b
+      size: 341227405
+    outs:
+    - path: data/processed/transactions_graph_features.parquet
+      hash: md5
+      md5: 1e4bbbc61f142f7541b1f9571faecca2
+      size: 808761121

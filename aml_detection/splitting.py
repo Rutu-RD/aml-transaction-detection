@@ -258,7 +258,7 @@ def load_split(name: str) -> pd.DataFrame:
 # Stage
 # --------------------------------------------------------------------------
  
-FEATURES_FILE = PROCESSED_DATA_DIR / "transactions_features.parquet"
+FEATURES_FILE = PROCESSED_DATA_DIR / "transactions_graph_features.parquet"
  
  
 def build_splits(df: pd.DataFrame | None = None, save: bool = True, drop_burn_in: bool =True) -> dict[str, pd.DataFrame]:

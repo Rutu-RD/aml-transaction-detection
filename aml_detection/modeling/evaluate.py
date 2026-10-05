@@ -59,7 +59,10 @@ os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
 from aml_detection.baseline import rule_scores
 from aml_detection.config import REPORTS_DIR
 from aml_detection.features import FEATURE_COLUMNS, TARGET, feature_matrix
-from aml_detection.modeling.train import BASELINE_PR_AUC, K_VALUES
+from aml_detection.modeling.train import (
+ ALL_FEATURES, 
+ BASELINE_PR_AUC,
+ K_VALUES)
 from aml_detection.splitting import load_split
  
 EXPERIMENT = "aml_detection"
@@ -88,8 +91,17 @@ def load_best_model(experiment: str = EXPERIMENT):
             f"No runs in experiment '{experiment}'. "
             "Run: python -m aml_detection.modeling.train"
         )
- 
-    best = runs.sort_values("metrics.pr_auc", ascending=False).iloc[0]
+    # SMOTE is excluded on principle rather than on score: it interpolatclear
+    # es
+    # binary flags and integer counts into values that cannot occur (an
+    # is_first_interaction of 0.37, a degree of 3.7), so its validation win
+    # comes from separation in a region of feature space real data never
+    # occupies.
+
+    eligible = runs[~runs["tags.mlflow.runName"].str.contains("smote", na=False)]
+
+    best = eligible.sort_values("metrics.pr_auc", ascending=False).iloc[0]
+    
     name = best.get("tags.mlflow.runName", "unknown")
     logger.info(
         f"Selected '{name}' (run {best.run_id[:8]}) "
@@ -345,8 +357,8 @@ def evaluate_on_test(register: bool = True) -> dict:
     model, run_id, run_name = load_best_model()
  
     val, test = load_split("val"), load_split("test")
-    X_val, y_val = feature_matrix(val), val[TARGET].to_numpy()
-    X_test, y_test = feature_matrix(test), test[TARGET].to_numpy()
+    X_val, y_val = val[list(ALL_FEATURES)], val[TARGET].to_numpy()
+    X_test, y_test = test[list(ALL_FEATURES)], test[TARGET].to_numpy()
  
     scores_val = model.predict_proba(X_val)[:, 1]
     scores_test = model.predict_proba(X_test)[:, 1]
