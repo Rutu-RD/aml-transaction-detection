@@ -78,7 +78,11 @@ from aml_detection.features import (
     feature_matrix,
 )
 from aml_detection.splitting import load_split
+from aml_detection.features import FEATURE_COLUMNS as BASE_FEATURES
+from aml_detection.graph_features import GRAPH_FEATURE_COLUMNS
 
+ALL_FEATURES = BASE_FEATURES + GRAPH_FEATURE_COLUMNS
+print("all_features are :",ALL_FEATURES)
 os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
 
 RANDOM_STATE = 42
@@ -129,12 +133,14 @@ def build_preprocessor(handles_nan: bool = False) -> ColumnTransformer:
             handle_unknown="ignore", min_frequency=0.01, sparse_output=False
         )),
     ])
-
+    print("total_features",len(ALL_FEATURES))
     return ColumnTransformer(
         transformers=[
             ("num", Pipeline(numeric_steps), list(NUMERIC_FEATURES)),
+            ("graph",Pipeline(numeric_steps),list(GRAPH_FEATURE_COLUMNS)),
             ("bool", "passthrough", list(BOOLEAN_FEATURES)),
             ("cat", categorical, list(CATEGORICAL_FEATURES)),
+
         ],
         remainder="drop",   # nothing outside FEATURE_COLUMNS can reach the model
     )
@@ -378,8 +384,8 @@ def run_experiments(
     train = load_split("train") if train is None else train
     val = load_split("val") if val is None else val
 
-    X_train, y_train = feature_matrix(train), train[TARGET]
-    X_val, y_val = feature_matrix(val), val[TARGET]
+    X_train, y_train = train[list(ALL_FEATURES)], train[TARGET]
+    X_val, y_val = val[list(ALL_FEATURES)], val[TARGET]
 
     scale_pos_weight = (y_train == 0).sum() / max((y_train == 1).sum(), 1)
     logger.info(
@@ -404,7 +410,7 @@ def run_experiments(
             import mlflow
             with mlflow.start_run(run_name=spec.name):
                 mlflow.log_params(spec.params)
-                mlflow.log_param("n_features", len(FEATURE_COLUMNS))
+                mlflow.log_param("n_features", len(ALL_FEATURES))
                 mlflow.log_param("train_positives", int(y_train.sum()))
 
                 pipeline, metrics = train_one(spec, X_train, y_train, X_val, y_val)
@@ -461,6 +467,7 @@ def run_experiments(
 # --------------------------------------------------------------------------
 
 def main() -> None:
+    print ("all features:",len(ALL_FEATURES))
     comparison = run_experiments()
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -482,6 +489,7 @@ def main() -> None:
         )
     )
     logger.info("\n" + comparison.round(4).to_string())
+    print("feature length:",len(ALL_FEATURES))
 
 
 if __name__ == "__main__":

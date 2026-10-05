@@ -22,11 +22,18 @@ stages:
       - data/interim/merged/transactions_merged.parquet
     outs:
       - data/processed/transactions_features.parquet
+  build_graph_features:
+    cmd: python -m aml_detection.graph_features
+    deps:
+      - aml_detection/graph_features.py
+      - data/processed/transactions_features.parquet
+    outs:
+      - data/processed/transactions_graph_features.parquet
   split_data:
     cmd: python -m aml_detection.splitting
     deps:
       - aml_detection/splitting.py
-      - data/processed/transactions_features.parquet
+      - data/processed/transactions_graph_features.parquet
     outs:
       - data/processed/splits/train.parquet
       - data/processed/splits/val.parquet
@@ -36,6 +43,7 @@ stages:
     deps:
       - aml_detection/modeling/train.py
       - aml_detection/features.py
+      - aml_detection/graph_features.py    
       - data/processed/splits/train.parquet
       - data/processed/splits/val.parquet
     outs:
@@ -47,6 +55,7 @@ stages:
     cmd: python -m aml_detection.modeling.tune
     deps:
       - aml_detection/modeling/tune.py
+      - aml_detection/modeling/train.py
       - data/processed/splits/train.parquet
       - data/processed/splits/val.parquet
     params:

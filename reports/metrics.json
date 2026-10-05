@@ -1,7 +1,7 @@
 {
-  "best_model": "xgboost_weighted",
-  "pr_auc": 0.3251363132775941,
-  "pr_auc_vs_baseline": 25.804469307745567,
-  "recall_at_1000": 0.34690101757631825,
+  "best_model": "xgboost_smote",
+  "pr_auc": 0.5727375712410987,
+  "pr_auc_vs_baseline": 45.455362796912596,
+  "recall_at_1000": 0.5411655874190564,
   "baseline_pr_auc": 0.0126
 }

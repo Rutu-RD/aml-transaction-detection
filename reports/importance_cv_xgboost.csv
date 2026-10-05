@@ -1,21 +1,21 @@
 ,0
-cat__payment_format_ACH,0.5425254
-cat__payment_format_Credit Card,0.04176134
-cat__payment_format_Cheque,0.027050842
-cat__dst_bank_country_Crytpo,0.020260273
-cat__dst_bank_country_Saudi Arabia,0.019473255
-cat__payment_format_Bitcoin,0.016825572
-cat__src_bank_country_Named,0.01560346
-num__src_secs_since_last_log,0.014544474
-num__src_fanout_ratio,0.013862165
-cat__payment_format_Cash,0.010348751
-num__dst_fanin_ratio,0.00947893
-num__amt_pct_ccy,0.008505128
-cat__dst_bank_country_Australia,0.008197332
-cat__src_entity_type_Corporation,0.007890479
-cat__dst_bank_country_Brazil,0.007727529
-cat__dst_bank_country_Named,0.0076875505
-cat__dst_entity_type_Other,0.007424358
-cat__dst_bank_country_infrequent_sklearn,0.0074004186
-cat__src_entity_type_Other,0.007151504
-cat__dst_bank_country_UK,0.006954959
+graph__pair_txn_count_prior,0.19924162
+cat__payment_format_Credit Card,0.16875769
+graph__src_in_degree_7d,0.10504115
+graph__dst_reciprocity_1d,0.06889314
+cat__payment_format_ACH,0.04303644
+graph__pair_amt_log_dev,0.038861595
+graph__src_out_degree_3d,0.019574443
+graph__src_reciprocity_1d,0.014807735
+graph__src_out_degree_1d,0.0136944065
+cat__src_bank_country_Saudi Arabia,0.013282839
+cat__dst_bank_country_Saudi Arabia,0.009185452
+cat__src_bank_country_Crytpo,0.0067405393
+cat__src_entity_type_Sole Proprietorship,0.0066572446
+graph__src_reciprocity_3d,0.00627689
+graph__src_reciprocity_7d,0.006047128
+cat__src_entity_type_Corporation,0.005639812
+cat__payment_format_Cash,0.0050346963
+num__amt_pct_ccy,0.0048558516
+cat__dst_bank_country_Crytpo,0.00473551
+graph__dst_in_degree_3d,0.004732254
